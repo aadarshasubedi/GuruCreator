@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Inc\AssetDescriptor.h" />
+    <ClInclude Include="Inc\AssetHandler.h" />
+    <ClInclude Include="Inc\AssetManager.h" />
+    <ClInclude Include="Inc\BaseAsset.h" />
+    <ClInclude Include="Inc\Camera.h" />
+    <ClInclude Include="Inc\CAnimationController.h" />
+    <ClInclude Include="Inc\CommDefs.hpp" />
+    <ClInclude Include="Inc\ComponentDescriptor.h" />
+    <ClInclude Include="Inc\ComponentDisciple.h" />
+    <ClInclude Include="Inc\CPriorityQueue.h" />
+    <ClInclude Include="Inc\CRenderModule.h" />
+    <ClInclude Include="Inc\DBitmap.h" />
+    <ClInclude Include="Inc\DObject.h" />
+    <ClInclude Include="Inc\DScriptDisciple.h" />
+    <ClInclude Include="Inc\DScriptGuru.h" />
+    <ClInclude Include="Inc\DScriptLibraries.h" />
+    <ClInclude Include="Inc\DSingleton.h" />
+    <ClInclude Include="Inc\Engine.h" />
+    <ClInclude Include="Inc\Entity.h" />
+    <ClInclude Include="Inc\EntityDescriptor.h" />
+    <ClInclude Include="Inc\GPicker.h" />
+    <ClInclude Include="Inc\GSceneNode.h" />
+    <ClInclude Include="Inc\GuruAPI.h" />
+    <ClInclude Include="Inc\GuruAsset.h" />
+    <ClInclude Include="Inc\GuruComponentFactory.h" />
+    <ClInclude Include="Inc\Helper.h" />
+    <ClInclude Include="Inc\HierarchyEntity.h" />
+    <ClInclude Include="Inc\IAsset.h" />
+    <ClInclude Include="Inc\InputGuru.h" />
+    <ClInclude Include="Inc\IRawAsset.h" />
+    <ClInclude Include="Inc\Logger.h" />
+    <ClInclude Include="Inc\Model.h" />
+    <ClInclude Include="Inc\ModelComponent.h" />
+    <ClInclude Include="Inc\ModelDescriptor.h" />
+    <ClInclude Include="Inc\ModelUtility.h" />
+    <ClInclude Include="Inc\Octree.h" />
+    <ClInclude Include="Inc\Particle.h" />
+    <ClInclude Include="Inc\ParticleGroup.h" />
+    <ClInclude Include="Inc\ParticleGuru.h" />
+    <ClInclude Include="Inc\ParticleSorter.h" />
+    <ClInclude Include="Inc\ParticleSystem.h" />
+    <ClInclude Include="Inc\PhysicsComponent.h" />
+    <ClInclude Include="Inc\RenderComponent.h" />
+    <ClInclude Include="Inc\Structs.h" />
+    <ClInclude Include="Inc\Utilities.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Src\AssetDescriptor.cpp" />
+    <ClCompile Include="Src\AssetManager.cpp" />
+    <ClCompile Include="Src\Camera.cpp" />
+    <ClCompile Include="Src\CAnimationController.cpp" />
+    <ClCompile Include="Src\ComponentDescriptor.cpp" />
+    <ClCompile Include="Src\ComponentDisciple.cpp" />
+    <ClCompile Include="Src\CRenderModule.cpp" />
+    <ClCompile Include="Src\DBitmap.cpp" />
+    <ClCompile Include="Src\DObject.cpp" />
+    <ClCompile Include="Src\DScriptDisciple.cpp" />
+    <ClCompile Include="Src\DScriptGuru.cpp" />
+    <ClCompile Include="Src\DScriptInputLib.cpp" />
+    <ClCompile Include="Src\DScriptLibraries.cpp" />
+    <ClCompile Include="Src\DScriptObjLib.cpp" />
+    <ClCompile Include="Src\DSingleton.cpp" />
+    <ClCompile Include="Src\Engine.cpp" />
+    <ClCompile Include="Src\Entity.cpp" />
+    <ClCompile Include="Src\GPicker.cpp" />
+    <ClCompile Include="Src\GSceneNode.cpp" />
+    <ClCompile Include="Src\GuruAsset.cpp" />
+    <ClCompile Include="Src\GuruComponentFactory.cpp" />
+    <ClCompile Include="Src\Helper.cpp" />
+    <ClCompile Include="Src\HierarchyEntity.cpp" />
+    <ClCompile Include="Src\InputGuru.cpp" />
+    <ClCompile Include="Src\Logger.cpp" />
+    <ClCompile Include="Src\Model.cpp" />
+    <ClCompile Include="Src\ModelComponent.cpp" />
+    <ClCompile Include="Src\ModelDescriptor.cpp" />
+    <ClCompile Include="Src\ModelUtility.cpp" />
+    <ClCompile Include="Src\Particle.cpp" />
+    <ClCompile Include="Src\ParticleGroup.cpp" />
+    <ClCompile Include="Src\ParticleGuru.cpp" />
+    <ClCompile Include="Src\ParticleSorter.cpp" />
+    <ClCompile Include="Src\ParticleSystem.cpp" />
+    <ClCompile Include="Src\PhysicsComponent.cpp" />
+    <ClCompile Include="Src\RenderComponent.cpp" />
+    <ClCompile Include="Src\Utilities.cpp" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{985FA2D8-88F6-4FFE-BCC3-6AD0A64F3E3D}</ProjectGuid>
+    <RootNamespace>GuruEngine</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>.\..\GuruLibs\</OutDir>
+    <TargetName>$(ProjectName)_$(Configuration)</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>../Externals/SDL;../Externals/Lua;../Externals/GLExtensions;./Inc/;./../GuruMath/Inc/</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>./../GuruLibs</AdditionalLibraryDirectories>
+      <AdditionalDependencies>GuruMath_$(Configuration).lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>glew32.lib;glut32.lib;lua5.1.lib;SDL.lib;SDLmain.lib;GuruMath_$(Configuration).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>./../GuruLibs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

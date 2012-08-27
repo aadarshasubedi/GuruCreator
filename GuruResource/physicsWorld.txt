@@ -1,0 +1,11 @@
+
+#Physics Data for the b2World object in the Game_Engine : mPhysicsWorld_Box2d.
+
+#2D axis aligned bounding box.
+Bounds> -1e6 -1e6 1e6 1e6
+
+#2D gravity vector.
+Gravity> 0.0 0.01
+
+#do objects sleep when not moving.
+Sleep> 1

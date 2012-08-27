@@ -1,0 +1,68 @@
+#Window Resolution
+
+     
+Resolution> 1280 720
+
+   
+Fullscreen> no
+
+
+   
+#Color
+Backbuffer> 255 0 255
+
+
+   
+#Desired frames per second
+
+   
+FPS> 60
+
+
+   
+#Anti-aliasing level
+
+   
+AntiAliasing> none
+
+
+  
+#Vsync
+
+   
+VerticalSync> no
+
+
+  
+#Rendering system
+
+   
+# @Options: Default=1 (SDL+OpenGL)=2, OpenGL=3, DirectX=4, OGRE=5.
+
+   
+Renderer> 2
+
+
+   
+#File location for global log
+
+  
+LogFile> ./logs/Log.txt\0 
+#File location directory for the CS500 test files.
+
+
+TestDir> ./resource/CS500_test_stuff
+
+
+
+#Current Test file.
+
+
+TestFile> /1/stest1.txt
+
+#Camera Settings.
+Camera>
+
+
+
+
