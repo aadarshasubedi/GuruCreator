@@ -150,6 +150,9 @@
     <ClInclude Include="Inc\Utilities.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Inc\BasicRenderObjects.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\AssetDescriptor.cpp">
@@ -261,6 +264,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Src\Utilities.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Inc\BasicRenderObjects.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

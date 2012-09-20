@@ -16,7 +16,7 @@ Camera::Camera()
 {
 	Init(0.1f, 2000.f, 640/480, (M_PI / 2.0f)*(180/M_PI), CVector3(0,0.f,-50.f) );
 
-	mPosition = CVector3( 0, 0, -300 );
+	mPosition = CVector3( 0, 0, 0 );
 	mPosition2D = CVector3( 0, 0, 0 );
 
 	mZoomFactor2D = 1.0f;
@@ -29,7 +29,7 @@ Camera::Camera()
 
 Camera::Camera( CRenderModule::RMOptions options )
 {
-	Init( 0.5f, 2000.f, (float)options.mWidth/(float)options.mHeight, 65.0f, CVector3(0.f,0.f,0.f) );
+	Init( 0.5f, 2000.f, (float)options.mWidth/(float)options.mHeight, 45.0f, CVector3(0.f,0.f,0.f) );
 
     mPosition = CVector3( 0, 0, -300 );
 
@@ -45,6 +45,14 @@ Camera::Camera( CRenderModule::RMOptions options )
 
 	mWinHeight = (float)options.mHeight;
 	mWinWidth = (float)options.mWidth;
+
+	mRotation = DQuaternion(CVector3(0,0,1), 0);
+	GLfloat matrix[16];
+	mRotation.CreateMatrixGL(matrix);
+
+	mSide = CVector3(matrix[0], matrix[1], matrix[2] );
+	mUp = CVector3(matrix[4], matrix[5], matrix[6] );
+	mLook = CVector3(matrix[8], matrix[9], matrix[10] );
 }
 
 Camera::~Camera()
@@ -53,13 +61,14 @@ Camera::~Camera()
 
 void Camera::Init(	float np, float fp, float ar, float fv, const CVector3& p )
 {
-	//InitializeProjectionSettings( np, fp, ar, fv );
-	//InitializeViewSettings( p, s, u, l );
 	mLookAtPoint = p;
-	mLookAtPoint = mLookAtPoint + CVector3(0,0,-1)*50.f;
 
+	//This alerts an immediate update to the cameras perspective matrix.
 	perspectiveChanged = true;
 	perspectiveProj  = true;
+
+	//Alerts to changes made to the view matrix.
+	viewChanged = true;
 
 	moveSpeed = 0.0f;
 	sideSpeed = 0.0f;
@@ -74,6 +83,9 @@ void Camera::Init(	float np, float fp, float ar, float fv, const CVector3& p )
 	headingDegree = 0.0f;
 	headingSpeed = 0.3f;
 
+	rollDegree = 0.0f;
+	rollSpeed = 0.3f;
+
 	curSpeed = 1.5f;
 
     mAspectRatio = ar;
@@ -82,43 +94,56 @@ void Camera::Init(	float np, float fp, float ar, float fv, const CVector3& p )
     mFarDist = fp;
 }
 
-CVector3	Camera::SetPerspective()
+
+void	Camera::SetModelView()
+{
+	//Calculate the pitch quaternion based on the pitch degree.  same for heading.
+	GLfloat matrix[16];
+	DQuaternion q, h;
+
+	DQuaternion heading;
+	heading.FromAxisAngle( CVector3(0,1,0), -headingDegree);
+	
+	DQuaternion pitch;
+	pitch.FromAxisAngle( CVector3(1,0,0), pitchDegree);
+
+	DQuaternion roll;
+	roll.FromAxisAngle(CVector3(0,0,-1), rollDegree);
+	
+	//Apply heading and get new side vector.
+	DQuaternion rotation = heading * pitch * roll;
+
+	//mRotation = pitch * mRotation;
+	mRotation = mRotation * heading;
+	mRotation = roll * mRotation;
+	
+	//mRotation.normalized();
+	mRotation.CreateMatrixGL(matrix);	
+	rotation.CreateMatrixGL(matrix);
+
+	mUp = CVector3(matrix[4], matrix[5], matrix[6] );
+	mLook = CVector3(matrix[8], matrix[9], matrix[10] );
+	mSide = CVector3(-matrix[0], -matrix[1], -matrix[2] );
+	mUp.normalize();
+	mLook.normalize();
+	mSide.normalize();
+	
+	glMatrixMode( GL_MODELVIEW );
+	glPopMatrix();
+	glPushMatrix();
+	glLoadIdentity();
+	CVector3 lookAt = mPosition + mLook * 20.0f;
+	gluLookAt(mPosition.x, mPosition.y, mPosition.z, lookAt.x, lookAt.y, lookAt.z, mUp.x, mUp.y, mUp.z);
+	
+	//rollDegree = 0;
+	//headingDegree = 0;
+	//pitchDegree = 0;
+}
+
+void	Camera::SetPerspective()
 {
 	if( perspectiveProj )
-	{
-		//Calculate the pitch quaternion based on the pitch degree.  same for heading.
-		GLfloat matrix[16];
-		DQuaternion q, h;
-
-		mPitch.FromAxisAngle( CVector3(1,0,0), pitchDegree );
-		mHeading.FromAxisAngle( CVector3(0,1,0), headingDegree );
-
-		h = mHeading * mPitch;
-
-		mPitch.CreateMatrixGL(matrix);
-
-		mLook.y = matrix[9];
-
-		h.CreateMatrixGL(matrix);
-
-		mLook.x = matrix[8];
-		mLook.z = matrix[10];
-
-		mUp = CVector3(matrix[4], matrix[5], matrix[6] );
-		mSide = CVector3(matrix[0], matrix[1], matrix[2] );
-
-		GLfloat mat[16];
-		mat[0] = mSide.x;   mat[1] = mUp.x;   mat[2] = -mLook.x;   mat[3] = 0;
-		mat[4] = mSide.y;   mat[5] = mUp.y;   mat[6] = -mLook.y;    mat[7] = 0;
-		mat[8] = mSide.z;   mat[9] = mUp.z;   mat[10] = -mLook.z;  mat[11] = 0;
-		mat[12] = 0;        mat[13] = 0;      mat[14] = 0;        mat[15] = 1.0f;
-	
-		glPushMatrix();
-		glMultMatrixf( mat );
-
-		glTranslatef( -mPosition.x, -mPosition.y, -mPosition.z );
-				
-      
+	{ 
 		glMatrixMode( GL_PROJECTION );
 		glPushMatrix();
 		glLoadIdentity();
@@ -139,8 +164,6 @@ CVector3	Camera::SetPerspective()
 
 		gluOrtho2D( (leftX * mZoomFactor2D + mPosition2D.x), (rightX * mZoomFactor2D + mPosition2D.x), (botY * mZoomFactor2D + mPosition2D.y), (topY * mZoomFactor2D + mPosition2D.y) );
 	}
-
-    return mPosition2D;
 }
 
 void	Camera::ChangePitch( float degree )
@@ -152,6 +175,12 @@ void	Camera::ChangeHeading( float degree )
 {
 	headingDegree += degree;
 }
+
+void	Camera::ChangeRoll( float degree )
+{
+	rollDegree += degree;
+}
+
 
 void	Camera::ChangeForwardVel( float speed )
 {
@@ -295,7 +324,7 @@ const CVector3&	Camera::Look() const
 	return mLook;
 }
 
-CPoint3&		Camera::LookPoint()
+CVector3&		Camera::LookPoint()
 {
 	return mLookAtPoint;
 }
@@ -345,22 +374,22 @@ Matrix4	Camera::GetProjectionMatrix()
 	Matrix4 proj;
 	float matrix[16] = {0};
 	GetProjectionMatrix(matrix);
-	proj.updateMatrix(matrix);
+	proj.setAllElements(matrix);
 	return proj;
 }
 
 void Camera::GetProjectionMatrix(float* matrix)
 {
-	GLfloat proj[16] = {0};
+	GLfloat proj[16] = {};
 
-	glGetFloatv(GL_PROJECTION, proj);
-
+	glGetFloatv(GL_PROJECTION_MATRIX, proj);
+	
 	//Go through and set one for one the new matrix.
 	CRenderModule::GLMatrixToFloatMatrix(proj, matrix);
 }
 void Camera::glMakeViewMatrix( GLfloat* matrix )
 {
-	glGetFloatv(GL_MODELVIEW, matrix);
+	glGetFloatv(GL_MODELVIEW_MATRIX, matrix);
 }
 void Camera::makeViewMatrix( float* matrix )
 {

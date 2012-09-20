@@ -10,13 +10,13 @@ Brief:      File containing the implementation details for Triangle.
 Triangle::Triangle() {}
 
 
-Triangle::Triangle(const Point& a, const Point& b, const Point& c) : mA(a), mB(b), mC(c) {}
+Triangle::Triangle(const CVector3& a, const CVector3& b, const CVector3& c) : mA(a), mB(b), mC(c) {}
 
 
 Triangle::~Triangle() {}
 
 
-
+/*
 bool Triangle::operator==(const Point& point)
 {
 	//@TODO: implement
@@ -133,7 +133,7 @@ float Triangle::operator*(const Plane& plane)
 	//@TODO: implement
 	return distPlaneToTriangle(plane, *this);
 }
-
+*/
 
 //Get a plane from the triangle.  Use A as the point on the plane.
 Plane Triangle::getPlane()

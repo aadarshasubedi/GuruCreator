@@ -11,22 +11,22 @@ Brief:      File containing the implementation details for Sphere.
 Sphere::Sphere() : mRadius(0.0f), mCenter() {}
 
 
-Sphere::Sphere(const float& radius, const Point& center) : mRadius(radius), mCenter(center) {}
+Sphere::Sphere(const float& radius, const CVector3& center) : mRadius(radius), mCenter(center) {}
 
 
 Sphere::~Sphere() {}
 
-
+/*
 
 //Operators
 //POINTS
-bool Sphere::operator==(const Point& point) //point is on sphere surface.
+bool Sphere::operator==(const CVector3& point) //point is on sphere surface.
 {	
 	return (*this * point == mRadius);
 }
 
 
-bool Sphere::operator<(const Point& point ) //point is outside sphere.
+bool Sphere::operator<(const CVector3& point ) //point is outside sphere.
 {
 	return (*this * point > mRadius);
 }
@@ -125,71 +125,71 @@ float Sphere::operator*(const Triangle& triangle)
 {
 	return distSphereToTriangle(*this, triangle);
 }
+*/
 
-
-
-//English friendly funcs.
-bool Sphere::pointOnSurface(const Point& point)
-{
-	return (*this == point);
-}
-
-
-bool Sphere::pointOutside(const Point& point)
-{
-	return (*this < point);
-}
-
-
-bool Sphere::pointInside(const Point& point)
-{
-	return (*this > point);
-}
-
-
-float Sphere::pointDistanceToSurface(const Point& point)
-{
-	return (*this * point);
-}
-
-
-bool Sphere::lineFullyOutside(const Line& line)
-{
-	return (*this < line);
-}
-
-
-bool Sphere::lineFullyInside(const Line& line)
-{
-	return (*this > line);
-}
-
-
-float Sphere::lineDistanceToSurface(const Line& line)
-{
-	return (*this * line);
-}
-
-
-bool Sphere::triangleOnSurface(const Triangle& triangle)
-{
-	return (*this == triangle);
-}
-
-
-bool Sphere::triangleFullyOutside(const Triangle& triangle)
-{
-	return (*this < triangle);
-}
-
-
-bool Sphere::triangleFullyInside(const Triangle& triangle)
-{
-	return (*this > triangle);
-}
-
-
-float Sphere::triangleDistanceToSurface(const Triangle& triangle)
-{
-	return (*this * triangle);
-}
+//
+////English friendly funcs.
+//bool Sphere::pointOnSurface(const Point& point)
+//{
+//	return (*this == point);
+//}
+//
+//
+//bool Sphere::pointOutside(const Point& point)
+//{
+//	return (*this < point);
+//}
+//
+//
+//bool Sphere::pointInside(const Point& point)
+//{
+//	return (*this > point);
+//}
+//
+//
+//float Sphere::pointDistanceToSurface(const Point& point)
+//{
+//	return (*this * point);
+//}
+//
+//
+//bool Sphere::lineFullyOutside(const Line& line)
+//{
+//	return (*this < line);
+//}
+//
+//
+//bool Sphere::lineFullyInside(const Line& line)
+//{
+//	return (*this > line);
+//}
+//
+//
+//float Sphere::lineDistanceToSurface(const Line& line)
+//{
+//	return (*this * line);
+//}
+//
+//
+//bool Sphere::triangleOnSurface(const Triangle& triangle)
+//{
+//	return (*this == triangle);
+//}
+//
+//
+//bool Sphere::triangleFullyOutside(const Triangle& triangle)
+//{
+//	return (*this < triangle);
+//}
+//
+//
+//bool Sphere::triangleFullyInside(const Triangle& triangle)
+//{
+//	return (*this > triangle);
+//}
+//
+//
+//float Sphere::triangleDistanceToSurface(const Triangle& triangle)
+//{
+//	return (*this * triangle);
+//}

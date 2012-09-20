@@ -96,9 +96,10 @@ Ray			GPicker::ComputePickerData( const int& pX, const int& pY )
 	camera->glMakeViewMatrix(matrix);
 
 	Matrix4 view;
-	view.updateMatrix(matrix);
+	view.setAllElements(matrix);
 
-	Matrix4 inv_view = view.getInverse();
+	Matrix4 inv_view;
+	view.getInverse(inv_view);
 
 	Matrix4 inv_ndc, inv_screen;
 	

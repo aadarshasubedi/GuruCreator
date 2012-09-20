@@ -59,7 +59,7 @@ void Model::Draw(int fillmode)
 	else
 	{	
 		glMatrixMode(GL_MODELVIEW);
-		glPushMatrix();	
+		glPushMatrix();
 		glTranslatef(0,0,0);
 	}
 
@@ -90,7 +90,8 @@ void Model::Draw(int fillmode)
 	glBindBufferARB( GL_ARRAY_BUFFER, 0 );
 	glBindBufferARB( GL_ELEMENT_ARRAY_BUFFER, 0 );	
 
-	glPopMatrix();
+	//glPopMatrix();
+		glPopMatrix();
 }
 
 

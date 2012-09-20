@@ -15,6 +15,7 @@
     <ClInclude Include="Inc\AssetHandler.h" />
     <ClInclude Include="Inc\AssetManager.h" />
     <ClInclude Include="Inc\BaseAsset.h" />
+    <ClInclude Include="Inc\BasicRenderObjects.h" />
     <ClInclude Include="Inc\Camera.h" />
     <ClInclude Include="Inc\CAnimationController.h" />
     <ClInclude Include="Inc\CommDefs.hpp" />
@@ -58,6 +59,7 @@
     <ClInclude Include="Inc\Utilities.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Inc\BasicRenderObjects.cpp" />
     <ClCompile Include="Src\AssetDescriptor.cpp" />
     <ClCompile Include="Src\AssetManager.cpp" />
     <ClCompile Include="Src\Camera.cpp" />

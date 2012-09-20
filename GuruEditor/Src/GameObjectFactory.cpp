@@ -44,6 +44,7 @@ GameObject* GameObjectFactory::CreateGameObject(GameObjectDescriptor description
 {
 	auto objPtr = new GameObject;
 	objPtr->mPosition = description.mPosition;
+	objPtr->mPickSphere.setCenter(description.mPosition);
 	objPtr->mOrientation = description.mOrientation;
 		
 	//Go through all of the descriptions component descriptions and call the component factory.

@@ -44,11 +44,9 @@ DQuaternion::DQuaternion( const CVector3& vec, float angle )
 	FromAxisAngle( vec, angle );
 }
 
-
-DQuaternion::DQuaternion(const Matrix<>& mat) //construct from matrix.
+DQuaternion::DQuaternion(const Matrix4 mat) //construct from matrix.
 {
 }
-
 
 void DQuaternion::FromAxisAngle( const CVector3& vec, float angle )
 {
@@ -67,6 +65,22 @@ void DQuaternion::FromAxisAngle( const CVector3& vec, float angle )
 	z = float( vec.z * sinHalfTheta );
 }
 
+void DQuaternion::toAxisAngle( CVector3& outVec, float& outAngle )
+{
+	outAngle = 2.0f * acos(w);
+	const float wSqr = sqrt(1.0f-w*w);
+	if( wSqr > 0.00001 )
+	{
+		outVec.x = x / wSqr;
+		outVec.y = y / wSqr;
+		outVec.z = z / wSqr;
+	}
+/*
+	angle = 2 * acos(qw)
+		x = qx / sqrt(1-qw*qw)
+		y = qy / sqrt(1-qw*qw)
+		z = qz / sqrt(1-qw*qw)*/
+}
 
 void DQuaternion::operator=(const DQuaternion& q)
 {
@@ -191,7 +205,7 @@ float DQuaternion::magnitude() const
 
 
 
-void DQuaternion::CreateMatrix( Matrix<>* mat)
+void DQuaternion::CreateMatrix( Matrix4& mat)
 {
 	//Crazy math that converts quaternion to matrix.
 	float a, b, c, d;
@@ -201,33 +215,49 @@ void DQuaternion::CreateMatrix( Matrix<>* mat)
 	c = 2.0f * ( x*z - y*w );
 	d = 0.0f;
 
-	(*mat)(0,0) = a;
-	(*mat)(1,0) = b;
-	(*mat)(2,0) = c;
-	(*mat)(3,0) = d;
+	mat.setElement(0,0,a);
+	mat.setElement(1,0,b);
+	mat.setElement(2,0,c);
+	mat.setElement(3,0,d);
+	//(*mat)(0,0) = a;
+	//(*mat)(1,0) = b;
+	//(*mat)(2,0) = c;
+	//(*mat)(3,0) = d;
 
 	a = 2.0f * ( y*x - z*w );
 	b = 1.0f - 2.0f * ( x*x + z*z );
 	c = 2.0f * ( y*z + x*w );
-
-	(*mat)(0,1) = a;
-	(*mat)(1,1) = b;
-	(*mat)(2,1) = c;
-	(*mat)(3,1) = d;
+		
+	mat.setElement(0,1,a);
+	mat.setElement(1,1,b);
+	mat.setElement(2,1,c);
+	mat.setElement(3,1,d);
+	//(*mat)(0,1) = a;
+	//(*mat)(1,1) = b;
+	//(*mat)(2,1) = c;
+	//(*mat)(3,1) = d;
 
 	a = 2.0f * ( z*x + y*w );
 	b = 2.0f * ( z*y - x*w );
 	c = 1.0f - 2.0f * ( x*x + y*y );
+		
+	mat.setElement(0,2,a);
+	mat.setElement(1,3,b);
+	mat.setElement(2,3,c);
+	mat.setElement(3,3,d);
+	//(*mat)(0,2) = a;
+	//(*mat)(1,2) = b;
+	//(*mat)(2,2) = c;
+	//(*mat)(3,2) = d;
 
-	(*mat)(0,2) = a;
-	(*mat)(1,2) = b;
-	(*mat)(2,2) = c;
-	(*mat)(3,2) = d;
-
-	(*mat)(0,3) = d;
-	(*mat)(1,3) = d;
-	(*mat)(2,3) = d;
-	(*mat)(3,3) = d;
+	mat.setElement(0,3,a);
+	mat.setElement(1,3,b);
+	mat.setElement(2,3,c);
+	mat.setElement(3,3,1.0f);
+	//(*mat)(0,3) = d;
+	//(*mat)(1,3) = d;
+	//(*mat)(2,3) = d;
+	//(*mat)(3,3) = d;
 }
 
 

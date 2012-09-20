@@ -24,9 +24,16 @@ public:
 	DQuaternion( const CVector3& vec ); // vector representation
 	DQuaternion( const CVector3& vec, float angle ); //vector-angle representation
 	DQuaternion( const DQuaternion& q); //copy constructor
-	DQuaternion(const Matrix<>& mat); //construct from matrix.
+	DQuaternion(const Matrix4 mat); //construct from matrix.
 
 	void FromAxisAngle( const CVector3& vec, float angle );
+	void toAxisAngle( CVector3& outVec, float& outAngle );
+
+/*
+	angle = 2 * acos(qw)
+		x = qx / sqrt(1-qw*qw)
+		y = qy / sqrt(1-qw*qw)
+		z = qz / sqrt(1-qw*qw)*/
 	DQuaternion operator*(const DQuaternion& q);
 	DQuaternion operator+(const DQuaternion& q);
 	void operator=(const DQuaternion& q);
@@ -42,7 +49,7 @@ public:
 
 	float magnitude() const;
 
-	void CreateMatrix(Matrix<>* mat);
+	void CreateMatrix(Matrix4& mat);
 	void CreateMatrixGL(float* matrix);
 };
 

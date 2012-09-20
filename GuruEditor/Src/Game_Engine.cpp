@@ -182,13 +182,28 @@ void Game_Engine::InitializePhysics()
 {
 	GameObjectDescriptor sphereDesc;
 	auto sphereRBDesc = new RigidBodyDescriptor;
-	auto sphereModDesc = new ModelDescriptor(CreateSphere(NULL, 10, 8, 6));
+	//auto sphereModDesc = new ModelDescriptor(CreateSphere(NULL, 20, 8, 8));
+	auto sphereModDesc = new ModelDescriptor(CreateSphere(NULL, 10, 20, 20));
+	
 	sphereDesc.mPosition = CVector3(0,0,0);
 	sphereDesc.mOrientation = DQuaternion();
-	sphereDesc.AddComponentDescriptor(sphereRBDesc);
+	//sphereDesc.AddComponentDescriptor(sphereRBDesc);
 	sphereDesc.AddComponentDescriptor(sphereModDesc);
 
 	auto sphereObj = mWorldScene->CreateGameObject(sphereDesc);
+	
+	GameObjectDescriptor sphereTwoDesc;
+	auto sphereTwoRBDesc = new RigidBodyDescriptor;
+	//auto sphereModDesc = new ModelDescriptor(CreateSphere(NULL, 20, 8, 8));
+	auto sphereTwoModDesc = new ModelDescriptor(CreateSphere(NULL, 20, 20, 20));
+	
+	sphereTwoDesc.mPosition = CVector3(0,80,0);
+	sphereTwoDesc.mOrientation = DQuaternion();
+	//sphereDesc.AddComponentDescriptor(sphereRBDesc);
+	sphereTwoDesc.AddComponentDescriptor(sphereTwoModDesc);
+
+	auto sphereObj2 = mWorldScene->CreateGameObject(sphereTwoDesc);
+	sphereObj2->mPickSphere.setRadius(20);
 
 	//Create the first object.
 	//GameObjectDescriptor sphereDesc;

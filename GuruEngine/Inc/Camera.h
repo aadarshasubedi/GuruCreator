@@ -57,7 +57,7 @@ public:
 
 	const CVector3&	Look() const;
 
-	CPoint3&		LookPoint();
+	CVector3&		LookPoint();
 	const CVector3& LookPoint() const;
 
 	bool&			PChanged();
@@ -83,11 +83,14 @@ public:
     void	SetLookPoint( const CVector3& v );
 
 	//NEW QUATERNION METHODS!!/////////// NOT BOUND TO LUA
-    CVector3	SetPerspective();
+    void	SetPerspective();
+	void	SetModelView();
 	/////////////////////////////////////
 
     void	ChangePitch( float degree );
     void	ChangeHeading( float degree );
+	void	ChangeRoll( float degree );
+
     void	ChangeForwardVel( float speed );
     void	ChangeUpVel( float speed );
     void	ChangeSideVel( float speed );
@@ -152,19 +155,18 @@ private:
     CVector3 mPosition;
 	CVector3 mPosition2D; //The x-y coords are used, not z.  For 2D games.
     CVector3 mLook, mSide, mUp;
-    CPoint3 mLookAtPoint;
-
-    DQuaternion mPitch;
-    DQuaternion mHeading;
-
+    CVector3 mLookAtPoint;
+	
     bool perspectiveProj;
+	bool viewChanged;
     bool perspectiveChanged;
 
 	bool mInverted, mOrbit;
 
-    float pitchSpeed, headingSpeed;
+	DQuaternion mRotation;
+    float pitchSpeed, headingSpeed, rollSpeed;
     float moveSpeed, sideSpeed, upSpeed, curSpeed;
-    float pitchDegree, headingDegree;
+    float pitchDegree, headingDegree, rollDegree;
 
     int w,h;
 

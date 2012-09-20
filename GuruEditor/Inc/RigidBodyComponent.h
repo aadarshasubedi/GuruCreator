@@ -103,8 +103,8 @@ public:
 
 	void AddImpulse(const CVector3& impulse, float strength);
 	void AddForce(const CVector3& force, float strength);
-	void AddImpulseAtPoint(const CVector3& impulse, const Point& applyPoint, float strength);
-	void AddForceAtPoint(const CVector3& force, const Point& applyPoint, float strength);
+	void AddImpulseAtPoint(const CVector3& impulse, const CVector3& applyPoint, float strength);
+	void AddForceAtPoint(const CVector3& force, const CVector3& applyPoint, float strength);
 	void SetLinearVelocity(const CVector3& velocity, float strength);
 	CVector3 GetPosition();
 	CVector3 GetLinearVelocity();

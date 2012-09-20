@@ -152,7 +152,7 @@ void	RigidBodyComponent::AddForce(const CVector3& force, float strength )
 #ifdef USE_BOX2D
 void	RigidBodyComponent::AddImpulseAtPoint( const b2Vec2& impulse, const b2Vec2& applyPoint, float strength )
 #else
-void	RigidBodyComponent::AddImpulseAtPoint(const CVector3& impulse, const Point& applyPoint, float strength)
+void	RigidBodyComponent::AddImpulseAtPoint(const CVector3& impulse, const CVector3& applyPoint, float strength)
 #endif
 {
 #ifdef USE_BOX2D
@@ -162,7 +162,7 @@ void	RigidBodyComponent::AddImpulseAtPoint(const CVector3& impulse, const Point&
 	}
 #else
 //@TODO:  Implement for the base system without Box2D
-	Point newPos = applyPoint + impulse;
+	CVector3 newPos = applyPoint + impulse;
 	newPos = newPos + CVector3(0,0,0) * strength;
 #endif
 }
@@ -171,7 +171,7 @@ void	RigidBodyComponent::AddImpulseAtPoint(const CVector3& impulse, const Point&
 #ifdef USE_BOX2D
 void	RigidBodyComponent::AddForceAtPoint( const b2Vec2& force, const b2Vec2& applyPoint, float strength  )
 #else
-void	RigidBodyComponent::AddForceAtPoint(const CVector3& force, const Point& applyPoint, float strength)
+void	RigidBodyComponent::AddForceAtPoint(const CVector3& force, const CVector3& applyPoint, float strength)
 #endif
 {
 #ifdef USE_BOX2D
@@ -181,7 +181,7 @@ void	RigidBodyComponent::AddForceAtPoint(const CVector3& force, const Point& app
 	}
 #else
 	//@TODO:  Implement for the base system without Box2D
-	Point newPos = applyPoint + force;
+	CVector3 newPos = applyPoint + force;
 	newPos = newPos + CVector3(0,0,0) * strength;
 #endif
 }

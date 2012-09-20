@@ -301,7 +301,7 @@ void		CAnimationParser::ParseKeyFrame()
 			tKeyFrame.mTimeStamp = (DWORD)tTimestamp;
 
 			//This member function rips apart a 4x4 matrix and converts it to a vqs which it sets itself to.
-			tKeyFrame.mTransform.SetVQS( m );
+			tKeyFrame.mTransform.setFromMatrix( m );
 			tKeyFrame.mMatrixTransform = m;
 
 			//Add this keyframe to it's respective animation and set.

@@ -23,11 +23,6 @@ vqs::vqs(const CVector3& vec, float angle) : mTranslation(), mOrientation(vec, a
 }
 
 
-vqs::vqs(const Matrix<>& mat) //construct from matrix.
-{
-}
-
-
 //Accessors and mutators
 const CVector3& vqs::translation() const
 {
@@ -137,116 +132,7 @@ CVector3 vqs::MultiplyVector( const CVector3& vec ) const
 	return result;
 }
 
-
-// This function converts this vqs into a 4x4 matrix.  For graphics purposes.
-Matrix<> vqs::toMatrix()  const
-{
-	return Matrix<>();
-}
-
-
-void vqs::SetVQS( const Matrix<>& matrix )
+void vqs::setFromMatrix( Matrix4 mat )
 {
 }
-
-
-
-//
-//D3DXVECTOR3 mutliplyQuaternionVector( const D3DXVECTOR3& vec, const D3DXQUATERNION& quat )
-//{
-//	D3DXQUATERNION vec_quaternion( vec.x, vec.y, vec.z, 0 ), quat_inv;
-//
-//	D3DXQuaternionInverse( &quat_inv, &quat );
-//
-//	D3DXQuaternionMultiply( &vec_quaternion, &quat_inv, &vec_quaternion);
-//	D3DXQuaternionMultiply( &vec_quaternion, &vec_quaternion, &quat );
-//
-//	return D3DXVECTOR3( vec_quaternion.x, vec_quaternion.y, vec_quaternion.z );
-//}
-//
-//
-//vqs::vqs()
-//:
-//vqs_translation(0,0,0), vqs_orientation(0,0,0,1), vqs_uniformscale(1.0f)
-//{
-//}
-//
-//
-//vqs::vqs(const D3DXVECTOR3 &vector, const D3DXQUATERNION &quaternion, const float &scale)
-//:
-//vqs_translation(vector), vqs_orientation(quaternion), vqs_uniformscale(scale)
-//{
-//}
-//
-//
-///*
-//This function performs the following arithmetic to compute the new vector.
-//
-//	newvec = orient_inv * ( vec * scale ) orient + translation
-//*/
-//
-//D3DXVECTOR3	vqs::MultiplyVector(const D3DXVECTOR3 &vec) const
-//{
-//	D3DXVECTOR3 result_vec;
-//
-//	//Now apply proper order to the multiplications.
-//	result_vec = mutliplyQuaternionVector( vec, vqs_orientation );
-//	result_vec *= 1.0f;
-//
-//	result_vec += vqs_translation;
-//
-//	return result_vec;
-//}
-//
-//
-//
-////OPERATOR
-////
-//// This operator allows multiplication between two vqs structs.
-//vqs				vqs::operator*( const vqs& VQS ) const
-//{
-//	D3DXVECTOR3 result_vec;
-//	D3DXQUATERNION	result_quaternion;
-//	float			result_scalar = 1.f;
-//
-//	result_vec = MultiplyVector( VQS.Translation() );
-//
-//	D3DXQuaternionMultiply( &result_quaternion, &VQS.Orientation(), &vqs_orientation );
-//
-//	result_scalar = vqs_uniformscale * VQS.Scale();
-//
-//	return vqs( result_vec, result_quaternion, result_scalar );
-//}
-//
-//
-//vqs						vqs::operator*( const float&	pScalar )
-//{
-//	return vqs( vqs_translation * pScalar, vqs_orientation * pScalar, vqs_uniformscale * pScalar);
-//}
-//
-//
-//
-//
-//vqs						vqs::operator+( const vqs&	pVQS )
-//{
-//	vqs		temp;
-//	temp.vqs_translation = vqs_translation + pVQS.vqs_translation;
-//	temp.vqs_orientation = vqs_orientation + pVQS.vqs_orientation;
-//	temp.vqs_uniformscale = vqs_uniformscale + pVQS.vqs_uniformscale;
-//
-//	return temp;
-//}
-//
-//
-//void		vqs::SetVQS(const D3DXMATRIX &matrix)
-//{
-//	vqs_uniformscale = 1.0f;
-//
-//	//Here I set the quaternion to the combined frame matrix tranformed into a quaternion.
-//	D3DXQuaternionRotationMatrix( &vqs_orientation, &matrix );
-//
-//	//Here I extract the translation portion out of the matrix and set the v vector to it.
-//	vqs_translation = D3DXVECTOR3(matrix._41,matrix._42,matrix._43);
-//}
-
 

@@ -144,21 +144,15 @@ void Game_Renderer::BeginRender()
 {
 	//Firstly clear the buffer before rendering the new frame.
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-	glMatrixMode( GL_MODELVIEW );	
 
-	CVector3 pos = mCamera->SetPerspective();
+	mCamera->SetModelView();
+	mCamera->SetPerspective();
 }
 
 
 void Game_Renderer::EndRender()
 {
 	SDL_GL_SwapBuffers();
-
-	glMatrixMode( GL_PROJECTION );
-	glPopMatrix();
-
-	glMatrixMode( GL_MODELVIEW );
-	glPopMatrix();
 }
 
 
@@ -175,7 +169,7 @@ void Game_Renderer::render()
 
 	std::for_each(begin(mModels), end(mModels), [&](Model* model)
 	{
-		model->Draw(fillType);
+		model->Draw(fillType);		
 	});
 }
 
@@ -281,6 +275,39 @@ void Game_Renderer::DrawWorldAxes()
 
 	glEnd();
 	glDisable( GL_LINE_SMOOTH );
+
+
+	//Now draw the grid.  this is a series of lines with right now a length of 5000 (in both directions.)
+	const int gridWidth = 500;
+	//x-z plane...  iterate on x, every 25 units (25x25) so z is same coordinate.
+	for( int i = -gridWidth; i <= gridWidth; i += 25 )
+	{
+		//draw line from (i,0,0) to (i,0,5000)	
+		glBegin( GL_LINES );
+
+			glColor3f( 0.2f, 0.1f, 0.9f );
+			glVertex3f( i, 0.f, -gridWidth );
+			glVertex3f( i, 0.f, gridWidth); //"x-axis" extended so not unit length.
+
+		glEnd();
+	}
+	for( int i = -gridWidth; i <= gridWidth; i += 25 )
+	{
+		//draw line from (i,0,0) to (i,0,5000)
+		//draw line from (i,0,0) to (i,0,5000)	
+		glBegin( GL_LINES );
+
+			glColor3f( 0.2f, 0.1f, 0.9f );
+			glVertex3f( -gridWidth, 0.f, i );
+			glVertex3f( gridWidth, 0.f, i); //"x-axis" extended so not unit length.
+
+		glEnd();
+	}
+	for( unsigned int i = 0; i <= 5000; i += 25 )
+	{
+		//draw line from (i,0,0) to (i,0,5000)
+	}
+
 }
 
 

@@ -10,117 +10,35 @@ Brief:      File containing the implementation details for Ray.
 Ray::Ray() : mOrigin(), mDir() {}
 
 
-Ray::Ray(const Point& pt, const CVector3& vec ) : mOrigin(pt), mDir(vec) {}
+Ray::Ray(const CVector3& pt, const CVector3& vec ) : mOrigin(pt), mDir(vec) {}
 
 
 Ray::~Ray() {}
 
 
-//Operators
-bool Ray::operator==(const Point& point) //point is origin
-{
-	return (mOrigin.x() == point.x() &&
-			mOrigin.y() == point.y() &&
-			mOrigin.z() == point.z() );
-}
-
-
-bool Ray::operator<(const Point& point) //point in front of origin, along mDir
-{
-	return !determineBehind(point);
-}
-
-
-bool Ray::operator>(const Point& point) //point behind origin, along -mDir
-{
-	return determineBehind(point);
-}
-
-
-float Ray::operator*(const Point& point) //project distance of (point - origin) * mDir
-{
-	return projectPoint(point);
-}
-
-
-bool Ray::operator==(const Ray& )
-{
-	//@TODO: implement
-	return false;
-}
-
-
-bool Ray::operator^(const Ray& )  //is vector perpendicular
-{
-	//@TODO: implement
-	return false;
-}
-
-
-bool Ray::operator<(const Ray& )  //is vector pointing away, not parallel
-{
-	//@TODO: implement
-	return false;
-}
-
-
-bool Ray::operator>(const Ray& )  //is vector point same way, no parallel
-{
-	//@TODO: implement
-	return false;
-}
-
-
-bool Ray::operator==(const CVector3& )
-{
-	//@TODO: implement
-	return false;
-}
-
-
-bool Ray::operator^(const CVector3& )  //is vector perpendicular
-{
-	//@TODO: implement
-	return false;
-}
-
-
-bool Ray::operator<(const CVector3& )  //is vector pointing away, not parallel
-{
-	//@TODO: implement
-	return false;
-}
-
-
-bool Ray::operator>(const CVector3& )  //is vector point same way, no parallel
-{
-	//@TODO: implement
-	return false;
-}
-
 
 //English friendly versions.
-bool Ray::pointIsOrigin(const Point& point)
+bool Ray::pointIsOrigin(const CVector3& point)
 {
-	return (*this == point);
+	return false;
 }
 
 
-bool Ray::pointBehindOrigin(const Point& point)
+bool Ray::pointBehindOrigin(const CVector3& point)
 {
-	return (*this < point);
+	return false;
 }
 
 
-bool Ray::pointInFrontOfOrigin(const Point& point)
+bool Ray::pointInFrontOfOrigin(const CVector3& point)
 {
-	return (*this > point);
+	return false;
 }
 
 
-float Ray::pointProjectedDistance(const Point& point)
+float Ray::pointProjectedDistance(const CVector3& point)
 {
-	return (*this * point);
+	return false;
 }
 
 
@@ -140,7 +58,7 @@ bool Ray::vectorPerpendicular(const Vector3& )
 
 bool Ray::rayIsSame(const Ray& ray)
 {
-	return (*this == ray);
+	return false;
 }
 
 
@@ -151,7 +69,7 @@ Line Ray::makeLine()
 }
 
 
-float Ray::projectPoint(const Point& point)
+float Ray::projectPoint(const CVector3& point)
 {
 	//Vector from point - mOrigin.
 	//Dot product onto mDir.normal().
@@ -160,9 +78,9 @@ float Ray::projectPoint(const Point& point)
 }
 
 
-bool Ray::determineBehind(const Point& point)
+bool Ray::determineBehind(const CVector3& point)
 {
-	if( *this == point || projectPoint(point) >= 0.0f )
+	if( pointIsOrigin(point) || projectPoint(point) >= 0.0f )
 	{
 		//Point is origin or in front of.
 		return false;

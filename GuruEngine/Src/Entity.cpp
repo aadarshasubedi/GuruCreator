@@ -14,7 +14,7 @@ Brief:
 /************************************************************************/
 /* Default Constructor
 /************************************************************************/
-Entity::Entity() : DObject(), mPickSphere(10.0f, Point())//, mPosition(), mOrientation()
+Entity::Entity() : DObject(), mPickSphere(10.0f, CVector3())
 {
 }
 
@@ -130,8 +130,10 @@ void Entity::RotateByVector(CVector3 vec, float angle)
 	pQ = pQ * rotation;
 	pQ = rotation.inverse() * pQ;
 	mPosition = CVector3(pQ.x, pQ.y, pQ.z);
-
 	mOrientation = rotation * mOrientation;
+
+	//Need to update the picking sphere as well.
+	mPickSphere.setCenter(mPosition);
 }
 
 
@@ -143,9 +145,11 @@ void Entity::RotateRelativeTo(CVector3 pos, CVector3 vec, float angle)
 
 	pQ = pQ * rotation;
 	pQ = rotation.inverse() * pQ;
-	mRenderPosition = CVector3(pQ.x, pQ.y, pQ.z);
-
+	mPosition = CVector3(pQ.x, pQ.y, pQ.z);
 	mOrientation = rotation * mOrientation;
+
+	//Need to update the picking sphere as well.
+	mPickSphere.setCenter(mPosition);
 }
 
 
@@ -169,19 +173,22 @@ void Entity::TrnaslateLocalZ(float amount)
 
 void Entity::TrnaslateWorldX(float amount)
 {
-
+	mPosition = mPosition + CVector3::WorldX * amount;
+	mPickSphere.setCenter(mPosition);
 }
 
 
 void Entity::TranslateWorldY(float amount)
 {
-
+	mPosition = mPosition + CVector3::WorldY * amount;
+	mPickSphere.setCenter(mPosition);
 }
 
 
 void Entity::TranslateWorldZ(float amount)
 {
-
+	mPosition = mPosition + CVector3::WorldZ * amount;
+	mPickSphere.setCenter(mPosition);
 }
 
 

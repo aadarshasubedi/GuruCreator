@@ -82,8 +82,8 @@
     <ClCompile Include="Src\AABB.cpp" />
     <ClCompile Include="Src\DQuaternion.cpp" />
     <ClCompile Include="Src\Line.cpp" />
+    <ClCompile Include="Src\Matrix.cpp" />
     <ClCompile Include="Src\Plane.cpp" />
-    <ClCompile Include="Src\Point.cpp" />
     <ClCompile Include="Src\Primitives.cpp" />
     <ClCompile Include="Src\Quad.cpp" />
     <ClCompile Include="Src\Ray.cpp" />
